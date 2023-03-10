@@ -7,20 +7,54 @@
     <title>Test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" referrerpolicy="no-referrer" />
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    <main class="p-4 flex items-center justify-center">
-        <div id="target1" class="w-12 h-12 bg-red-500 m-4"></div>
-        <div id="target2" class="w-12 h-12 bg-yellow-500 m-4"></div>
-        <div id="target3" class="w-12 h-12 bg-green-500 m-4"></div>
-        <div id="target4" class="w-12 h-12 bg-blue-500 m-4"></div>
-        
-        <div id="target5" class="w-12 h-12 bg-black m-4"></div>
+    <main class="p-4">
+        <section class="my-8 text-center bg-yellow-200 p-8">
+            <p class="text-lg font-bold my-4">How to animate:</p>
+            <code>animate(target,type,direction,rotation,duration,delay,easing)</code>
+
+            <p class="text-lg font-bold my-4">How to define WP:</p>
+            <code>setWP(selector,target,type,direction,rotation,duration,delay,easing,logging)</code>
+        </section>
+
+        <section class="flex items-center justify-center">
+            <div id="target1" class="w-12 h-12 bg-red-500 m-4"></div>
+            <div id="target2" class="w-12 h-12 bg-yellow-500 m-4"></div>
+            <div id="target3" class="w-12 h-12 bg-green-500 m-4"></div>
+            <div id="target4" class="w-12 h-12 bg-blue-500 m-4"></div>
+            
+            <div id="target5" class="w-12 h-12 bg-black m-4"></div>
+        </section>
+
+        <section id="section1" class="w-screen h-screen bg-yellow-300 flex items-center justify-center">
+            <div>WAYPOINT 1</div>
+        </section>
+
+        <section id="section2" class="w-screen h-screen bg-green-300 flex items-center justify-center">
+            <div>WAYPOINT 2</div>
+        </section>
+
+        <section id="section3" class="w-screen h-screen bg-blue-300 flex items-center justify-center">
+            <div>WAYPOINT 3</div>
+        </section>
+
+        <section class="flex items-center justify-center">
+            <div id="target6" class="w-12 h-12 bg-red-500 m-4"></div>
+            <div id="target7" class="w-12 h-12 bg-yellow-500 m-4"></div>
+            <div id="target8" class="w-12 h-12 bg-green-500 m-4"></div>
+            <div id="target9" class="w-12 h-12 bg-blue-500 m-4"></div>
+        </section>
     </main>
 
-    <script src="js/anim-lib.min.js"></script>
+    <script src="js/anim-lib.js"></script>
     <script>
         $(() => {
+            
+            setWP('#target1','#section1','slide','left',180,1,0,null,true)
+            setWP('#section1','#section2','slide','right',-180,.5,0,null,true)
+            setMultiWP('#section3',['#target6','#target7','#target8','#target9'],'pop','',-180,.5,0,null,true)
+
             animate('#target1','slide','up')
             animate('#target2','slide','left')
             animate('#target3','slide','right')

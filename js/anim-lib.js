@@ -28,17 +28,14 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
  * @param {string} target (the target for the animation)
  * @param {obj} config (an obj containing config for our functions)
  */
-const setWP = (selector,target,config) => {
-    new Waypoint({
-        element: document.getElementById(selector),
-        handler: (direction) => {
-            // console.log('Animating ' + direction + " " + targetId)
-            animate(target,config.type,config.direction,config.rotation,config.duration,config.delay,config.easing)
+const setWP = (selector,target,type,direction,rotation,duration,delay,easing,logging) => {
+    $(selector).waypoint({
+        handler: function(){
+            animate(target,type,direction,rotation,duration,delay,easing,logging)
         },
         offset: 'bottom-in-view',
         triggerOnce: true
     })
-
 }
 
 /**
@@ -47,14 +44,11 @@ const setWP = (selector,target,config) => {
  * @param {array} targets (the target selectors for the animation)
  * @param {obj} animationFuncConfig (an obj containing config for our functions)
  */
-const setMultiWP = (selector, targets, config) => {
-    new Waypoint({
-        element: document.getElementById(selector),
-        handler: (direction) => {
-            if(direction == "down") {
-                for(let x=0; x<= targets.length; x++) {
-                    animate(targets[x],config.type,config.direction,config.rotation,config.duration,config.delay,config.easing)
-                }
+const setMultiWP = (selector,targets,type,direction,rotation,duration,delay,easing,logging) => {
+    $(selector).waypoint({
+        handler: function(direction){
+            for(let x=0; x<= targets.length; x++) {
+                animate(targets[x],type,direction,rotation,duration,delay,easing,logging)
             }
         },
         offset: 'bottom-in-view',
@@ -72,7 +66,7 @@ const setMultiWP = (selector, targets, config) => {
  * @param {int} delay 
  * @param {string} easing 
  */
-const animate = (target,type,direction,rotation,duration,delay,easing) => {
+const animate = (target,type,direction,rotation,duration,delay,easing,logging) => {
     let animsConfig = {};
 
     switch(type) {
@@ -119,7 +113,7 @@ const animate = (target,type,direction,rotation,duration,delay,easing) => {
             break;
     }
 
-    console.log(animsConfig)
+    logging ? console.log(animsConfig) : null
     easing ? animsConfig.easing = easing : null
     gsap.from(target, animsConfig)
 }
