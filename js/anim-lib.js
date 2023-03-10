@@ -30,8 +30,10 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
  */
 const setWP = (selector,target,type,direction,rotation,duration,delay,easing,logging) => {
     $(selector).waypoint({
-        handler: function(){
-            animate(target,type,direction,rotation,duration,delay,easing,logging)
+        handler: function(dir){
+            if(dir == "down") {
+                animate(target,type,direction,rotation,duration,delay,easing,logging)
+            }
         },
         offset: 'bottom-in-view',
         triggerOnce: true
@@ -46,10 +48,13 @@ const setWP = (selector,target,type,direction,rotation,duration,delay,easing,log
  */
 const setMultiWP = (selector,targets,type,direction,rotation,duration,delay,easing,logging) => {
     $(selector).waypoint({
-        handler: function(direction){
-            for(let x=0; x<= targets.length; x++) {
-                animate(targets[x],type,direction,rotation,duration,delay,easing,logging)
+        handler: function(dir){
+            if(dir == "down") {
+                for(let x=0; x<= targets.length; x++) {
+                    animate(targets[x],type,direction,rotation,duration,delay,easing,logging)
+                }
             }
+            
         },
         offset: 'bottom-in-view',
         triggerOnce: true
@@ -101,7 +106,7 @@ const animate = (target,type,direction,rotation,duration,delay,easing,logging) =
             animsConfig.scale = 0
             animsConfig.rotation = rotation ? rotation : 0
             animsConfig.duration = duration ? duration : 1
-            animsConfig.delay = delay ? delay : 0
+            animsConfig.delay = delay ? delay : 0.25
             break;
 
         default:
@@ -109,7 +114,7 @@ const animate = (target,type,direction,rotation,duration,delay,easing,logging) =
             animsConfig.scale = 0
             animsConfig.rotation = rotation ? rotation : 0
             animsConfig.duration = duration ? duration : 1
-            animsConfig.delay = delay ? delay : 0
+            animsConfig.delay = delay ? delay : 0.25
             break;
     }
 
