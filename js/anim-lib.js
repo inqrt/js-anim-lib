@@ -113,7 +113,14 @@ const animate = (target,type,direction,rotation,duration,delay,easing,logging) =
             break;
     }
 
-    logging ? console.log(animsConfig) : null
+
+    if(logging) {
+        console.log("*** ANIM LIB DEBUG ***");
+        console.log("* TARGET *", target)
+        console.log("* CONFIG *", animsConfig)
+    }
+
+    // logging ? console.log(animsConfig) : null
     easing ? animsConfig.ease = easing : null
     gsap.from(target, animsConfig)
 }
