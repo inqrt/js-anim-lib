@@ -114,6 +114,6 @@ const animate = (target,type,direction,rotation,duration,delay,easing,logging) =
     }
 
     logging ? console.log(animsConfig) : null
-    easing ? animsConfig.easing = easing : null
+    easing ? animsConfig.ease = easing : null
     gsap.from(target, animsConfig)
 }
